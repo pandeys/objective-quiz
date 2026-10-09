@@ -5,6 +5,9 @@ on:
     branches: [ main ]
   pull_request:
 
+permissions:
+  contents: write   # lets the last step publish the build log to the ci-results branch
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -16,7 +19,9 @@ jobs:
           java-version: '21'
           cache: maven
       - name: Build and test
-        run: mvn -B verify
+        run: |
+          set -o pipefail
+          mvn -B verify 2>&1 | tee build.log
       - name: Upload jar
         if: success()
         uses: actions/upload-artifact@v4
@@ -24,3 +29,17 @@ jobs:
           name: sitare-quiz-jar
           path: target/sitare-quiz-*.jar
           retention-days: 14
+      # Keeps the latest build result in the ci-results branch, so it can be read with plain git.
+      - name: Publish build result
+        if: always() && github.event_name == 'push'
+        run: |
+          mkdir -p /tmp/ci && cp build.log /tmp/ci/build.log 2>/dev/null || echo "no build log" > /tmp/ci/build.log
+          tail -n 400 /tmp/ci/build.log > /tmp/ci/build-tail.log
+          cp -r target/surefire-reports /tmp/ci/ 2>/dev/null || true
+          echo "${{ job.status }} ${{ github.sha }}" > /tmp/ci/STATUS
+          cd /tmp/ci
+          git init -q -b ci-results
+          git config user.name "ci"
+          git config user.email "ci@users.noreply.github.com"
+          git add -A && git commit -q -m "CI result for ${{ github.sha }}"
+          git push -f "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" ci-results
