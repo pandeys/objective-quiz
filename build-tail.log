@@ -1,0 +1,150 @@
+[INFO] Scanning for projects...
+[INFO] Loaded 24037 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+[INFO] 
+[INFO] -----------------------< org.sitare:sitare-quiz >-----------------------
+[INFO] Building Sitare Quiz 0.1.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] Loaded 74 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
+[INFO] Loaded 24037 auto-discovered prefixes for remote repository maven-central (prefixes-maven-central.txt)
+[WARNING] Could not transfer metadata /.meta/prefixes.txt from/to flyway-repo (https://nexus.flywaydb.org/repository/flyway/): nexus.flywaydb.org: Name or service not known
+[WARNING] Could not transfer metadata /.meta/prefixes.txt from/to flyway-community-db-support (https://maven.pkg.github.com/flyway/flyway-community-db-support): HTTP Status: 401
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ sitare-quiz ---
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] Copying 16 resources from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ sitare-quiz ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 44 source files with javac [debug parameters release 21] to target/classes
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ sitare-quiz ---
+[INFO] skip non existing resourceDirectory /home/runner/work/objective-quiz/objective-quiz/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ sitare-quiz ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 4 source files with javac [debug parameters release 21] to target/test-classes
+[INFO] 
+[INFO] --- surefire:3.2.5:test (default-test) @ sitare-quiz ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running org.sitare.quiz.attempt.QuestionOrderRandomizerTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.100 s -- in org.sitare.quiz.attempt.QuestionOrderRandomizerTest
+[INFO] Running org.sitare.quiz.QuizFlowIntegrationTest
+08:04:56.433 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [org.sitare.quiz.QuizFlowIntegrationTest]: QuizFlowIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+08:04:56.510 [main] INFO org.testcontainers.images.PullPolicy -- Image pull policy will be performed by: DefaultPullPolicy()
+08:04:56.513 [main] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+08:04:57.062 [main] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Found Docker environment with local Unix socket (unix:///var/run/docker.sock)
+08:04:57.072 [main] INFO org.testcontainers.DockerClientFactory -- Docker host IP address is localhost
+08:04:57.089 [main] INFO org.testcontainers.DockerClientFactory -- Connected to docker: 
+  Server Version: 28.0.4
+  API Version: 1.48
+  Operating System: Ubuntu 24.04.5 LTS
+  Total Memory: 15989 MB
+08:04:57.117 [main] INFO tc.testcontainers/ryuk:0.7.0 -- Pulling docker image: testcontainers/ryuk:0.7.0. Please be patient; this may take some time but only needs to be done once.
+08:04:57.463 [docker-java-stream-548174466] INFO tc.testcontainers/ryuk:0.7.0 -- Starting to pull image
+08:04:57.484 [docker-java-stream-548174466] INFO tc.testcontainers/ryuk:0.7.0 -- Pulling image layers:  0 pending,  0 downloaded,  0 extracted, (0 bytes/0 bytes)
+08:04:57.613 [docker-java-stream-548174466] INFO tc.testcontainers/ryuk:0.7.0 -- Pulling image layers:  2 pending,  1 downloaded,  0 extracted, (95 KB/? MB)
+08:04:57.651 [docker-java-stream-548174466] INFO tc.testcontainers/ryuk:0.7.0 -- Pulling image layers:  1 pending,  2 downloaded,  0 extracted, (95 KB/? MB)
+08:04:57.651 [docker-java-stream-548174466] INFO tc.testcontainers/ryuk:0.7.0 -- Pulling image layers:  0 pending,  3 downloaded,  0 extracted, (95 KB/6 MB)
+08:04:57.759 [docker-java-stream-548174466] INFO tc.testcontainers/ryuk:0.7.0 -- Pulling image layers:  0 pending,  3 downloaded,  1 extracted, (3 MB/6 MB)
+08:04:57.874 [docker-java-stream-548174466] INFO tc.testcontainers/ryuk:0.7.0 -- Pulling image layers:  0 pending,  3 downloaded,  2 extracted, (3 MB/6 MB)
+08:04:57.923 [docker-java-stream-548174466] INFO tc.testcontainers/ryuk:0.7.0 -- Pulling image layers:  0 pending,  3 downloaded,  3 extracted, (6 MB/6 MB)
+08:04:57.930 [main] INFO tc.testcontainers/ryuk:0.7.0 -- Image testcontainers/ryuk:0.7.0 pull took PT0.813409077S
+08:04:57.983 [main] INFO tc.testcontainers/ryuk:0.7.0 -- Creating container for image: testcontainers/ryuk:0.7.0
+08:04:58.069 [main] INFO tc.testcontainers/ryuk:0.7.0 -- Container testcontainers/ryuk:0.7.0 is starting: 29ccbcc08ae3d44b7a295cb90021f2f91a8c964225fc14c2999f76d7269f8dda
+08:04:58.353 [main] INFO tc.testcontainers/ryuk:0.7.0 -- Container testcontainers/ryuk:0.7.0 started in PT0.37015016S
+08:04:58.359 [main] INFO org.testcontainers.utility.RyukResourceReaper -- Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+08:04:58.359 [main] INFO org.testcontainers.DockerClientFactory -- Checking the system...
+08:04:58.360 [main] INFO org.testcontainers.DockerClientFactory -- ✔︎ Docker server version should be at least 1.6.0
+08:04:58.362 [main] INFO tc.postgres:16-alpine -- Pulling docker image: postgres:16-alpine. Please be patient; this may take some time but only needs to be done once.
+08:04:58.610 [docker-java-stream-1987595545] INFO tc.postgres:16-alpine -- Starting to pull image
+08:04:58.611 [docker-java-stream-1987595545] INFO tc.postgres:16-alpine -- Pulling image layers:  0 pending,  0 downloaded,  0 extracted, (0 bytes/0 bytes)
+08:04:58.746 [docker-java-stream-1987595545] INFO tc.postgres:16-alpine -- Pulling image layers: 10 pending,  1 downloaded,  0 extracted, (15 KB/? MB)
+08:04:58.747 [docker-java-stream-1987595545] INFO tc.postgres:16-alpine -- Pulling image layers:  9 pending,  2 downloaded,  0 extracted, (16 KB/? MB)
+08:04:58.763 [docker-java-stream-1987595545] INFO tc.postgres:16-alpine -- Pulling image layers:  9 pending,  2 downloaded,  1 extracted, (16 KB/? MB)
+08:04:58.777 [docker-java-stream-1987595545] INFO tc.postgres:16-alpine -- Pulling image layers:  8 pending,  3 downloaded,  1 extracted, (16 KB/? MB)
+08:04:58.798 [docker-java-stream-1987595545] INFO tc.postgres:16-alpine -- Pulling image layers:  7 pending,  4 downloaded,  1 extracted, (33 KB/? MB)
+08:04:58.828 [docker-java-stream-1987595545] INFO tc.postgres:16-alpine -- Pulling image layers:  7 pending,  4 downloaded,  2 extracted, (881 KB/? MB)
+08:04:58.833 [docker-java-stream-1987595545] INFO tc.postgres:16-alpine -- Pulling image layers:  6 pending,  5 downloaded,  2 extracted, (1 MB/? MB)
+08:04:58.846 [docker-java-stream-1987595545] INFO tc.postgres:16-alpine -- Pulling image layers:  6 pending,  5 downloaded,  3 extracted, (1 MB/? MB)
+08:04:58.849 [docker-java-stream-1987595545] INFO tc.postgres:16-alpine -- Pulling image layers:  5 pending,  6 downloaded,  3 extracted, (1 MB/? MB)
+08:04:58.857 [docker-java-stream-1987595545] INFO tc.postgres:16-alpine -- Pulling image layers:  5 pending,  6 downloaded,  4 extracted, (1 MB/? MB)
+08:04:58.882 [docker-java-stream-1987595545] INFO tc.postgres:16-alpine -- Pulling image layers:  4 pending,  7 downloaded,  4 extracted, (1 MB/? MB)
+08:04:58.901 [docker-java-stream-1987595545] INFO tc.postgres:16-alpine -- Pulling image layers:  3 pending,  8 downloaded,  4 extracted, (1 MB/? MB)
+08:04:58.935 [docker-java-stream-1987595545] INFO tc.postgres:16-alpine -- Pulling image layers:  2 pending,  9 downloaded,  4 extracted, (23 MB/? MB)
+08:04:59.226 [docker-java-stream-1987595545] INFO tc.postgres:16-alpine -- Pulling image layers:  1 pending, 10 downloaded,  4 extracted, (81 MB/? MB)
+08:05:01.788 [docker-java-stream-1987595545] INFO tc.postgres:16-alpine -- Pulling image layers:  1 pending, 10 downloaded,  5 extracted, (107 MB/? MB)
+08:05:01.802 [docker-java-stream-1987595545] INFO tc.postgres:16-alpine -- Pulling image layers:  1 pending, 10 downloaded,  6 extracted, (107 MB/? MB)
+08:05:01.811 [docker-java-stream-1987595545] INFO tc.postgres:16-alpine -- Pulling image layers:  1 pending, 10 downloaded,  7 extracted, (107 MB/? MB)
+08:05:01.820 [docker-java-stream-1987595545] INFO tc.postgres:16-alpine -- Pulling image layers:  1 pending, 10 downloaded,  8 extracted, (107 MB/? MB)
+08:05:01.830 [docker-java-stream-1987595545] INFO tc.postgres:16-alpine -- Pulling image layers:  1 pending, 10 downloaded,  9 extracted, (107 MB/? MB)
+08:05:01.839 [docker-java-stream-1987595545] INFO tc.postgres:16-alpine -- Pulling image layers:  1 pending, 10 downloaded, 10 extracted, (107 MB/? MB)
+08:05:01.845 [docker-java-stream-1987595545] INFO tc.postgres:16-alpine -- Pull complete. 11 layers, pulled in 3s (downloaded 107 MB at 35 MB/s)
+08:05:01.845 [main] INFO tc.postgres:16-alpine -- Image postgres:16-alpine pull took PT3.482424074S
+08:05:01.949 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration org.sitare.quiz.QuizApplication for test class org.sitare.quiz.QuizFlowIntegrationTest
+08:05:02.044 [main] INFO tc.postgres:16-alpine -- Creating container for image: postgres:16-alpine
+08:05:02.059 [main] INFO tc.postgres:16-alpine -- Container postgres:16-alpine is starting: 5d6e90c041244576f40fc754b802dd640335c9d3fcd2903610875043e4b14ecb
+08:05:03.524 [main] INFO tc.postgres:16-alpine -- Container postgres:16-alpine started in PT1.47980614S
+08:05:03.524 [main] INFO tc.postgres:16-alpine -- Container is started (JDBC URL: jdbc:postgresql://localhost:32769/test?loggerLevel=OFF)
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.3.4)
+
+2026-10-09T08:05:03.884Z  INFO 2385 --- [sitare-quiz] [           main] o.sitare.quiz.QuizFlowIntegrationTest    : Starting QuizFlowIntegrationTest using Java 21.0.12.1 with PID 2385 (started by runner in /home/runner/work/objective-quiz/objective-quiz)
+2026-10-09T08:05:03.886Z  INFO 2385 --- [sitare-quiz] [           main] o.sitare.quiz.QuizFlowIntegrationTest    : No active profile set, falling back to 1 default profile: "default"
+2026-10-09T08:05:05.804Z  INFO 2385 --- [sitare-quiz] [           main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:postgresql://localhost:32769/test (PostgreSQL 16.15)
+2026-10-09T08:05:05.844Z  INFO 2385 --- [sitare-quiz] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Schema history table "public"."flyway_schema_history" does not exist yet
+2026-10-09T08:05:05.850Z  INFO 2385 --- [sitare-quiz] [           main] o.f.core.internal.command.DbValidate     : Successfully validated 1 migration (execution time 00:00.019s)
+2026-10-09T08:05:05.868Z  INFO 2385 --- [sitare-quiz] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table "public"."flyway_schema_history" ...
+2026-10-09T08:05:05.924Z  INFO 2385 --- [sitare-quiz] [           main] o.f.core.internal.command.DbMigrate      : Current version of schema "public": << Empty Schema >>
+2026-10-09T08:05:05.947Z  INFO 2385 --- [sitare-quiz] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "1 - core schema"
+2026-10-09T08:05:06.055Z  INFO 2385 --- [sitare-quiz] [           main] o.f.core.internal.command.DbMigrate      : Successfully applied 1 migration to schema "public", now at version v1 (execution time 00:00.092s)
+2026-10-09T08:05:06.304Z  INFO 2385 --- [sitare-quiz] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name facultyUserDetailsService
+2026-10-09T08:05:06.375Z  INFO 2385 --- [sitare-quiz] [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2026-10-09T08:05:06.677Z  INFO 2385 --- [sitare-quiz] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 2 endpoints beneath base path '/actuator'
+2026-10-09T08:05:07.347Z  INFO 2385 --- [sitare-quiz] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-10-09T08:05:07.348Z  INFO 2385 --- [sitare-quiz] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-10-09T08:05:07.349Z  INFO 2385 --- [sitare-quiz] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2026-10-09T08:05:07.415Z  INFO 2385 --- [sitare-quiz] [           main] o.sitare.quiz.QuizFlowIntegrationTest    : Started QuizFlowIntegrationTest in 3.862 seconds (process running for 11.989)
+2026-10-09T08:05:07.434Z  INFO 2385 --- [sitare-quiz] [   scheduling-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-10-09T08:05:07.467Z  INFO 2385 --- [sitare-quiz] [   scheduling-1] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@43074006
+2026-10-09T08:05:07.473Z  INFO 2385 --- [sitare-quiz] [   scheduling-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+WARNING: A Java agent has been loaded dynamically (/home/runner/.m2/repository/net/bytebuddy/byte-buddy-agent/1.14.19/byte-buddy-agent-1.14.19.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 14.74 s -- in org.sitare.quiz.QuizFlowIntegrationTest
+[INFO] Running org.sitare.quiz.grading.ScoreCalculatorTest
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.008 s -- in org.sitare.quiz.grading.ScoreCalculatorTest
+[INFO] Running org.sitare.quiz.bank.QuestionRowParserTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.011 s -- in org.sitare.quiz.bank.QuestionRowParserTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 15, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- jar:3.4.2:jar (default-jar) @ sitare-quiz ---
+[INFO] Building jar: /home/runner/work/objective-quiz/objective-quiz/target/sitare-quiz-0.1.0.jar
+[INFO] 
+[INFO] --- spring-boot:3.3.4:repackage (repackage) @ sitare-quiz ---
+[INFO] Loaded 50 auto-discovered prefixes for remote repository ow2-snapshot (prefixes-ow2-snapshot.txt)
+[INFO] Replacing main artifact /home/runner/work/objective-quiz/objective-quiz/target/sitare-quiz-0.1.0.jar with repackaged archive, adding nested dependencies in BOOT-INF/.
+[INFO] The original artifact has been renamed to /home/runner/work/objective-quiz/objective-quiz/target/sitare-quiz-0.1.0.jar.original
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  23.361 s
+[INFO] Finished at: 2026-10-09T08:05:11Z
+[INFO] ------------------------------------------------------------------------
