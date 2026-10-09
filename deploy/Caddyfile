@@ -1,0 +1,8 @@
+# Replace with the real domain name pointing at this VM.
+quiz.sitare.org {
+    encode gzip
+    reverse_proxy localhost:8080 {
+        health_uri /actuator/health
+    }
+    header Strict-Transport-Security "max-age=31536000"
+}

@@ -1,0 +1,47 @@
+server:
+  port: 8080
+  forward-headers-strategy: framework
+  servlet:
+    session:
+      timeout: 2h
+      cookie:
+        same-site: lax
+        http-only: true
+
+spring:
+  application:
+    name: sitare-quiz
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/sitare_quiz}
+    username: ${DB_USER:sitare}
+    password: ${DB_PASSWORD:sitare}
+    hikari:
+      maximum-pool-size: 10
+  flyway:
+    enabled: true
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 5MB
+  thymeleaf:
+    cache: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: never
+
+app:
+  # Creates the first faculty account on startup if no faculty exists yet.
+  bootstrap:
+    faculty-email: ${APP_FACULTY_EMAIL:}
+    faculty-name: ${APP_FACULTY_NAME:Faculty}
+    faculty-password: ${APP_FACULTY_PASSWORD:}
+  quiz:
+    # Seconds of grace after the deadline during which an in-flight save is still accepted.
+    grace-seconds: 5
+    auto-submit-interval-ms: 10000

@@ -1,0 +1,5 @@
+topic,type,question,marks,correct,option1,option2,option3,option4
+OOP,SINGLE,Which keyword prevents a method from being overridden in Java?,1,3,static,private only,final,abstract
+OOP,MULTI,Which of these are valid access modifiers in Java?,2,1;2;4,public,protected,friend,private
+Exceptions,TRUE_FALSE,A checked exception must be either caught or declared with throws.,1,true,,,,
+I/O,SINGLE,Which class reads text from a file line by line?,1,2,FileOutputStream,BufferedReader,PrintWriter,ObjectOutputStream

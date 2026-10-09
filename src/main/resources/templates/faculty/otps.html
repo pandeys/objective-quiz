@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments :: head('Student passwords')}"></head>
+<body>
+<header th:replace="~{fragments :: facultyNav}" class="no-print"></header>
+<main class="page">
+    <p class="notice warn no-print">These passwords are shown only once. Print this page or save it as PDF now,
+        then cut the slips and hand one to each student.</p>
+    <div class="row no-print">
+        <button type="button" class="primary" id="print-button">Print</button>
+        <a class="button" th:href="@{/faculty/quizzes/{id}(id=${quiz.id()})}">Back to quiz</a>
+    </div>
+
+    <div class="slips">
+        <div class="slip" th:each="s : ${issued}">
+            <div class="small muted" th:text="${quiz.title()}">Quiz</div>
+            <div><strong th:text="${s.name()}">Name</strong> · <span class="mono" th:text="${s.rollNo()}">Roll</span></div>
+            <div>Quiz code: <strong class="mono" th:text="${quiz.code()}">CODE</strong></div>
+            <div>Password: <strong class="mono big" th:text="${s.otp()}">OTP</strong></div>
+        </div>
+    </div>
+</main>
+<script th:src="@{/js/print.js}"></script>
+</body>
+</html>

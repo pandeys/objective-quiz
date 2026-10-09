@@ -1,0 +1,19 @@
+[Unit]
+Description=Sitare Quiz
+After=network-online.target postgresql.service
+Wants=network-online.target
+
+[Service]
+User=sitare
+WorkingDirectory=/opt/sitare-quiz
+EnvironmentFile=/etc/sitare-quiz.env
+ExecStart=/usr/bin/java -Xms256m -Xmx1g -jar /opt/sitare-quiz/sitare-quiz.jar
+SuccessExitStatus=143
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+ProtectSystem=full
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

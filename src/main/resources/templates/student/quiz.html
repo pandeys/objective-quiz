@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments :: head('Quiz')}"></head>
+<body class="quiz-body">
+<header class="topbar">
+    <span class="brand" id="quiz-title">Sitare Quiz</span>
+    <span id="student-name" class="muted"></span>
+    <span id="save-status" class="save-status" aria-live="polite"></span>
+    <span id="timer" class="timer" aria-live="off" hidden>--:--</span>
+</header>
+
+<main class="page">
+    <p id="banner" class="notice error" role="alert" hidden></p>
+
+    <!-- Before starting -->
+    <section id="intro" class="card narrow" hidden>
+        <h1>Before you start</h1>
+        <ul>
+            <li>The timer starts when you press Start and keeps running even if you close the page.</li>
+            <li>You can move back and forth between questions and change any answer until you submit.</li>
+            <li>Every answer is saved as soon as you choose it. If the Wi-Fi drops, keep going; answers are sent when it returns.</li>
+            <li>When time runs out, your saved answers are submitted automatically.</li>
+            <li>Do not log in on a second device or tab: only the newest login can continue.</li>
+        </ul>
+        <button type="button" id="start-button" class="primary big">Start quiz</button>
+    </section>
+
+    <!-- During the quiz -->
+    <section id="quiz" hidden>
+        <div class="quiz-layout">
+            <article class="card question-panel">
+                <div class="question-meta">
+                    <span id="q-number">Question 1 of 20</span>
+                    <span id="q-marks" class="muted small"></span>
+                    <span id="q-type" class="muted small"></span>
+                </div>
+                <p id="q-stem" class="stem big"></p>
+                <div id="q-options" class="option-list"></div>
+                <div class="row wrap">
+                    <button type="button" id="clear-button">Clear answer</button>
+                    <button type="button" id="mark-button">Mark for review</button>
+                </div>
+                <div class="row nav-row">
+                    <button type="button" id="prev-button">← Previous</button>
+                    <button type="button" id="next-button" class="primary">Next →</button>
+                </div>
+            </article>
+
+            <aside class="card palette-panel">
+                <h2 class="small">Questions</h2>
+                <div id="palette" class="palette"></div>
+                <ul class="legend small">
+                    <li><span class="dot answered"></span> Answered</li>
+                    <li><span class="dot marked"></span> Marked for review</li>
+                    <li><span class="dot"></span> Not answered</li>
+                </ul>
+                <p id="summary" class="small muted"></p>
+                <button type="button" id="submit-button" class="danger wide">Submit quiz</button>
+            </aside>
+        </div>
+    </section>
+
+    <!-- After submitting -->
+    <section id="result" class="card narrow" hidden>
+        <h1>Quiz submitted</h1>
+        <p id="result-how" class="muted"></p>
+        <p class="score">Your score: <strong id="result-score"></strong></p>
+        <div id="review"></div>
+        <form th:action="@{/logout}" method="post"><button type="submit">Log out</button></form>
+    </section>
+</main>
+
+<script th:src="@{/js/quiz.js}"></script>
+</body>
+</html>

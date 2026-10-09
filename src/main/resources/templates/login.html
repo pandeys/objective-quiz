@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments :: head('Faculty login')}"></head>
+<body class="center-page">
+<main class="card narrow">
+    <h1>Faculty login</h1>
+    <p class="notice error" th:if="${param.error}">Email or password is not correct.</p>
+    <p class="notice ok" th:if="${param.logout}">You have logged out.</p>
+    <form th:action="@{/login}" method="post" class="stack">
+        <label>Email
+            <input type="email" name="username" autocomplete="username" required autofocus>
+        </label>
+        <label>Password
+            <input type="password" name="password" autocomplete="current-password" required>
+        </label>
+        <button type="submit" class="primary">Log in</button>
+    </form>
+    <p class="muted small"><a th:href="@{/student/login}">Student login</a></p>
+</main>
+</body>
+</html>

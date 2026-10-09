@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:fragment="head(title)">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="_csrf" th:content="${_csrf != null ? _csrf.token : ''}">
+    <meta name="_csrf_header" th:content="${_csrf != null ? _csrf.headerName : ''}">
+    <title th:text="${title} + ' · Sitare Quiz'">Sitare Quiz</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+
+<header th:fragment="facultyNav" class="topbar">
+    <a class="brand" th:href="@{/faculty/quizzes}">Sitare Quiz</a>
+    <nav>
+        <a th:href="@{/faculty/quizzes}">Quizzes</a>
+        <a th:href="@{/faculty/questions}">Question bank</a>
+        <form th:action="@{/logout}" method="post" class="inline">
+            <button type="submit" class="link">Log out</button>
+        </form>
+    </nav>
+</header>
+
+<div th:fragment="flash">
+    <p class="notice ok" th:if="${message}" th:text="${message}"></p>
+    <p class="notice error" th:if="${error}" th:text="${error}"></p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments :: head('Quizzes')}"></head>
+<body>
+<header th:replace="~{fragments :: facultyNav}"></header>
+<main class="page">
+    <div th:replace="~{fragments :: flash}"></div>
+    <h1>Your quizzes</h1>
+
+    <table class="grid" th:if="${!quizzes.isEmpty()}">
+        <thead>
+        <tr><th>Title</th><th>Course</th><th>Starts</th><th>Minutes</th><th>Code</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+        <tr th:each="q : ${quizzes}">
+            <td><a th:href="@{/faculty/quizzes/{id}(id=${q.id()})}" th:text="${q.title()}">Title</a></td>
+            <td th:text="${q.course()}">Course</td>
+            <td th:text="${@fmt.dateTime(q.startsAt())}">Start</td>
+            <td th:text="${q.durationMin()}">30</td>
+            <td class="mono" th:text="${q.code()}">CODE</td>
+            <td><span class="badge" th:text="${q.status()}">DRAFT</span></td>
+        </tr>
+        </tbody>
+    </table>
+    <p class="muted" th:if="${quizzes.isEmpty()}">No quizzes yet. Create the first one below.</p>
+
+    <section class="card">
+        <h2>New quiz</h2>
+        <form th:action="@{/faculty/quizzes}" method="post" class="form-grid">
+            <label>Title <input type="text" name="title" required maxlength="255" placeholder="OOP Quiz 3"></label>
+            <label>Course <input type="text" name="course" maxlength="255" placeholder="BCS3705 Object Oriented Programming"></label>
+            <label>Starts at (IST) <input type="datetime-local" name="startsAt" required></label>
+            <label>Duration (minutes) <input type="number" name="durationMin" value="30" min="1" max="300" required></label>
+            <label>Late join allowed (minutes) <input type="number" name="lateJoinMin" value="10" min="0" max="300" required></label>
+            <div><button type="submit" class="primary">Create quiz</button></div>
+        </form>
+    </section>
+</main>
+</body>
+</html>

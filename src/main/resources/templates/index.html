@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments :: head('Welcome')}"></head>
+<body class="center-page">
+<main class="card narrow">
+    <h1>Sitare Quiz</h1>
+    <p class="muted">Objective quizzes for Sitare University classes.</p>
+    <div class="stack">
+        <a class="button primary" th:href="@{/student/login}">I am a student</a>
+        <a class="button" th:href="@{/login}">Faculty login</a>
+    </div>
+</main>
+</body>
+</html>

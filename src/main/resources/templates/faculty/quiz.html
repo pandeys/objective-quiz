@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments :: head(${quiz.title()})}"></head>
+<body>
+<header th:replace="~{fragments :: facultyNav}"></header>
+<main class="page" th:with="draft=${quiz.status().name() == 'DRAFT'}, live=${quiz.status().name() == 'PUBLISHED'}">
+    <div th:replace="~{fragments :: flash}"></div>
+    <ul class="errors" th:if="${rosterErrors}">
+        <li th:each="e : ${rosterErrors}" th:text="${e}">Row 3: ...</li>
+    </ul>
+
+    <div class="title-row">
+        <h1 th:text="${quiz.title()}">Quiz</h1>
+        <span class="badge big" th:text="${quiz.status()}">DRAFT</span>
+    </div>
+    <p class="muted">
+        <span th:text="${quiz.course()}">Course</span>
+        · Starts <span th:text="${@fmt.dateTime(quiz.startsAt())}">time</span>
+        · <span th:text="${quiz.durationMin()}">30</span> minutes
+        · Quiz code <strong class="mono" th:text="${quiz.code()}">CODE</strong>
+        · <span th:text="${selectedCount}">0</span> questions
+        · <span th:text="${roster.size()}">0</span> students
+    </p>
+
+    <!-- Step-by-step setup while in draft -->
+    <section class="card" th:if="${draft}">
+        <h2>1. Settings</h2>
+        <form th:action="@{/faculty/quizzes/{id}/settings(id=${quiz.id()})}" method="post" class="form-grid">
+            <label>Title <input type="text" name="title" th:value="${quiz.title()}" required></label>
+            <label>Course <input type="text" name="course" th:value="${quiz.course()}"></label>
+            <label>Starts at (IST) <input type="datetime-local" name="startsAt" th:value="${@fmt.input(quiz.startsAt())}" required></label>
+            <label>Duration (minutes) <input type="number" name="durationMin" th:value="${quiz.durationMin()}" min="1" max="300"></label>
+            <label>Late join allowed (minutes) <input type="number" name="lateJoinMin" th:value="${quiz.lateJoinMin()}" min="0"></label>
+            <label class="check"><input type="checkbox" name="negativeMarking" value="true" th:checked="${quiz.negativeMarking()}"> Negative marking</label>
+            <label>Deduction per wrong answer (fraction of the question's marks)
+                <input type="number" name="negativeFraction" th:value="${quiz.negativeFraction()}" min="0" max="1" step="0.05"></label>
+            <label class="check"><input type="checkbox" name="webcamEnabled" value="true" th:checked="${quiz.webcamEnabled()}"> Webcam snapshots (coming in the proctoring release)</label>
+            <label>Keep snapshots for (days) <input type="number" name="snapshotRetentionDays" th:value="${quiz.snapshotRetentionDays()}" min="1" max="365"></label>
+            <div><button type="submit" class="primary">Save settings</button></div>
+        </form>
+    </section>
+
+    <section class="card" th:if="${draft}">
+        <h2>2. Questions</h2>
+        <p class="muted small" th:if="${bank.isEmpty()}">Your question bank is empty. <a th:href="@{/faculty/questions}">Add or import questions first.</a></p>
+        <form th:action="@{/faculty/quizzes/{id}/questions(id=${quiz.id()})}" method="post" th:if="${!bank.isEmpty()}">
+            <div class="pick-list">
+                <label th:each="q : ${bank}" class="pick">
+                    <input type="checkbox" name="questionIds" th:value="${q.id()}" th:checked="${selected.contains(q.id())}">
+                    <span class="badge" th:text="${q.topic()}">Topic</span>
+                    <span th:text="${q.stem()}">Question</span>
+                    <span class="muted small" th:text="'(' + ${@fmt.marks(q.marks())} + ')'"></span>
+                </label>
+            </div>
+            <button type="submit" class="primary">Save question selection</button>
+        </form>
+    </section>
+
+    <section class="card" th:if="${!(quiz.status().name() == 'CLOSED')}">
+        <h2 th:text="${draft} ? '3. Class roster' : 'Class roster'">3. Class roster</h2>
+        <p class="small muted">CSV or Excel with columns <span class="mono">roll_no, name, email</span>.
+            Uploading gives every student in the file a new one-time password, shown once on the next page.</p>
+        <form th:action="@{/faculty/quizzes/{id}/roster(id=${quiz.id()})}" method="post" enctype="multipart/form-data" class="row">
+            <input type="file" name="file" accept=".csv,.xlsx,.xls" required>
+            <button type="submit">Upload roster and issue passwords</button>
+        </form>
+    </section>
+
+    <section class="card" th:if="${draft}">
+        <h2>4. Publish</h2>
+        <p class="small muted">After publishing, settings and questions are locked. Students log in at
+            <span class="mono" th:text="@{/student/login}">/student/login</span> with code
+            <strong class="mono" th:text="${quiz.code()}">CODE</strong>.</p>
+        <form th:action="@{/faculty/quizzes/{id}/publish(id=${quiz.id()})}" method="post">
+            <button type="submit" class="primary">Publish quiz</button>
+        </form>
+    </section>
+
+    <!-- While running and after -->
+    <section class="card" th:if="${live}">
+        <h2>During the quiz</h2>
+        <div class="row wrap">
+            <form th:action="@{/faculty/quizzes/{id}/extend(id=${quiz.id()})}" method="post" class="row">
+                <input type="number" name="minutes" value="5" min="1" max="60" class="short">
+                <input type="text" name="rollNo" placeholder="Roll no. (blank = whole class)">
+                <button type="submit">Add minutes</button>
+            </form>
+            <form th:action="@{/faculty/quizzes/{id}/close(id=${quiz.id()})}" method="post">
+                <button type="submit" class="danger">Close quiz and submit everyone</button>
+            </form>
+        </div>
+    </section>
+
+    <section class="card" th:if="${!draft}">
+        <div class="title-row">
+            <h2>Results</h2>
+            <div class="row">
+                <a class="button" th:href="@{/faculty/quizzes/{id}/results.xlsx(id=${quiz.id()})}">Download Excel</a>
+                <form th:action="@{/faculty/quizzes/{id}/share-answers(id=${quiz.id()})}" method="post">
+                    <input type="hidden" name="shared" th:value="${!quiz.answersShared()}">
+                    <button type="submit" th:text="${quiz.answersShared()} ? 'Hide correct answers' : 'Share correct answers with students'">Share</button>
+                </form>
+            </div>
+        </div>
+        <table class="grid">
+            <thead><tr><th>Roll no.</th><th>Name</th><th>Status</th><th>Marks</th><th>Second logins</th></tr></thead>
+            <tbody>
+            <tr th:each="r : ${results}">
+                <td class="mono" th:text="${r.rollNo()}">R1</td>
+                <td th:text="${r.name()}">Name</td>
+                <td th:text="${r.statusLabel()}">Status</td>
+                <td th:text="${r.score() != null} ? ${@fmt.marks(r.score())} + ' / ' + ${@fmt.marks(r.maxScore())} : '—'">0</td>
+                <td th:text="${r.secondLogins()}" th:classappend="${r.secondLogins() > 0} ? 'warn'">0</td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section class="card" th:if="${draft and !roster.isEmpty()}">
+        <h2>Students on the roster</h2>
+        <table class="grid">
+            <thead><tr><th>Roll no.</th><th>Name</th><th>Email</th></tr></thead>
+            <tbody>
+            <tr th:each="s : ${roster}">
+                <td class="mono" th:text="${s.rollNo()}">R1</td>
+                <td th:text="${s.name()}">Name</td>
+                <td th:text="${s.email()}">email</td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+</main>
+</body>
+</html>

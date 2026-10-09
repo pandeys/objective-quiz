@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments :: head('Student login')}"></head>
+<body class="center-page">
+<main class="card narrow">
+    <h1>Start your quiz</h1>
+    <p class="muted">Your teacher gives you the quiz code and your one-time password.</p>
+    <p class="notice error" th:if="${error}" th:text="${error}"></p>
+    <form th:action="@{/student/login}" method="post" class="stack" autocomplete="off">
+        <label>Quiz code
+            <input type="text" name="code" th:value="${code}" maxlength="12" required autofocus class="upper">
+        </label>
+        <label>Roll number
+            <input type="text" name="roll" th:value="${roll}" maxlength="50" required>
+        </label>
+        <label>One-time password
+            <input type="text" name="otp" maxlength="12" required class="upper">
+        </label>
+        <button type="submit" class="primary">Log in</button>
+    </form>
+    <p class="muted small">Use a laptop with Chrome or Edge. Phones are not supported.</p>
+</main>
+</body>
+</html>
