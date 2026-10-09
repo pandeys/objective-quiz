@@ -157,6 +157,41 @@ class QuizFlowIntegrationTest {
                 .andExpect(status().isConflict());
     }
 
+    @Test
+    void everyPageRenders() throws Exception {
+        String email = "p" + System.nanoTime() + "@sitare.org";
+        faculty.insert(email, "Page Tester", "{noop}x");
+        var me = faculty.findByEmail(email).orElseThrow();
+        var facultyAuth = new UsernamePasswordAuthenticationToken(me, null, me.getAuthorities());
+
+        questions.importFile(me.getId(), "bank.csv", stream(BANK));
+        long quizId = quizzes.create(me.getId(), new QuizSettings("Page quiz", "OOP", Instant.now().minusSeconds(60),
+                30, 10, false, new BigDecimal("0.50"), false, 30));
+        quizzes.setQuestions(me.getId(), quizId, questions.list(me.getId()).stream().map(q -> q.id()).toList());
+
+        mvc.perform(get("/")).andExpect(status().isOk());
+        mvc.perform(get("/login")).andExpect(status().isOk());
+        mvc.perform(get("/student/login")).andExpect(status().isOk());
+        mvc.perform(get("/faculty/quizzes").with(authentication(facultyAuth))).andExpect(status().isOk());
+        mvc.perform(get("/faculty/questions").with(authentication(facultyAuth))).andExpect(status().isOk());
+        mvc.perform(get("/faculty/quizzes/" + quizId).with(authentication(facultyAuth))).andExpect(status().isOk());
+
+        var roster = new org.springframework.mock.web.MockMultipartFile("file", "roster.csv", "text/csv",
+                ("roll_no,name,email\nP" + System.nanoTime() + ",Page Student,\n").getBytes(StandardCharsets.UTF_8));
+        mvc.perform(org.springframework.test.web.servlet.request.MockMvcRequestBuilders
+                        .multipart("/faculty/quizzes/" + quizId + "/roster").file(roster)
+                        .with(authentication(facultyAuth)).with(csrf()))
+                .andExpect(status().isOk());
+        quizzes.publish(me.getId(), quizId);
+        mvc.perform(get("/faculty/quizzes/" + quizId).with(authentication(facultyAuth))).andExpect(status().isOk());
+        mvc.perform(get("/faculty/quizzes/" + quizId + "/results.xlsx").with(authentication(facultyAuth)))
+                .andExpect(status().isOk());
+
+        var student = new UsernamePasswordAuthenticationToken(
+                new StudentPrincipal(1, "X", "X", quizId, "t"), null, List.of(new SimpleGrantedAuthority("ROLE_STUDENT")));
+        mvc.perform(get("/student/quiz").with(authentication(student))).andExpect(status().isOk());
+    }
+
     private static ByteArrayInputStream stream(String s) {
         return new ByteArrayInputStream(s.getBytes(StandardCharsets.UTF_8));
     }
