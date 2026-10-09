@@ -51,8 +51,7 @@ Open http://localhost:8080, log in as faculty, then:
 mvn verify      # unit tests + an end-to-end test against PostgreSQL (needs Docker for Testcontainers)
 ```
 
-To run the same on every push with GitHub Actions, copy `ci/github-actions-ci.yml` to `.github/workflows/ci.yml`
-(the access token used for the first push could not create workflow files). It builds, tests and keeps the jar as an artifact.
+GitHub Actions runs the same on every push (`.github/workflows/ci.yml`) and keeps the built jar as an artifact.
 
 ## Deploy (Oracle Cloud Always Free VM)
 
